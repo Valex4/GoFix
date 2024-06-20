@@ -3,12 +3,12 @@ import { TextInput } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Card } from '../components/Shared/Card';
 
-export const WorkShop = () =>{
+export const Services = () => {
     return(
         <>
             <View style={{ paddingTop: 20 ,alignItems: 'left', justifyContent: 'center' }}>
                 <Text style={{fontWeight: 'bold', fontSize: 25, marginLeft: 10}}>
-                    Seleccione un taller
+                    Seleccione un servicio
                 </Text>
            
             </View>
@@ -16,15 +16,15 @@ export const WorkShop = () =>{
                 <View style={styles.container}>
                     <Ionicons name="search-outline" size={20} color="gray" style={styles.icon} />
                     <TextInput
-                    placeholder="Buscar taller"
+                    placeholder="Buscar servicio"
                     style={styles.input}
                     />
                 </View>
             <ScrollView style={{width:"100%"}}>
-                <Card option={1} name={"Taller 'El colocho' "} rate={5} direction={"Avenida las palmas, #339 Tuxtla Gutiérrez"}/>
-                <Card option={1} name={"Taller La tuerca"} rate={4} direction={"Por suchiapa XD"}/>
-                <Card option={1} name={"Taller Ferras"} rate={2} direction={"Por suchiapa XD"}/>
-                <Card option={1} name={"Taller surimbo"} rate={2} direction={"Por suchiapa XD"}/>
+                    <Card option={2} name={"Cambio de aceite"}  description={"El cambio de aceite en su vehiculo es muy importante, porque benefia a su motor"}/>
+                    <Card option={2} name={"Cambio de llanta"}  description={"El cambio de aceite en su vehiculo es muy importante, porque benefia a su motor"}/>
+                    <Card option={2} name={"Cambio de balatas"}  description={"El cambio de aceite en su vehiculo es muy importante, porque benefia a su motor"}/>
+                    <Card option={2} name={"Revisión general"}  description={"El cambio de aceite en su vehiculo es muy importante, porque benefia a su motor"}/>
             </ScrollView>
             </View>
         </>

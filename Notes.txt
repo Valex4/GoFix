@@ -1,1 +1,0 @@
-El view es como si fuese un div

@@ -1,34 +1,15 @@
 import { View, Text, Button, ScrollView, StyleSheet} from 'react-native';
 import { TextInput } from 'react-native';
-import CardService from '../components/CardService';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
-export const HomeScreen = ({ navigation }) =>{ 
+export const HomeScreen = () =>{ 
     return (
       <>
       <View style={{ paddingTop: 20 ,alignItems: 'left', justifyContent: 'center' }}>
         <Text style={{fontWeight: 'bold', fontSize: 25, marginLeft: 10}}>
-            Seleccione un taller
+            Aca ira el mapa
         </Text>
-        {/* <Button
-            title="Ir al taller"
-            onPress={() => navigation.push('Workshop')}
-        /> */}
-      </View>
-      <View style={{ paddingTop:10 ,alignItems: 'center', justifyContent: 'center', padding: 10 }}>
-        <View style={styles.container}>
-            <Ionicons name="search-outline" size={20} color="gray" style={styles.icon} />
-            <TextInput
-                placeholder="Buscar servicio"
-                style={styles.input}
-            />
-        </View>
-          <ScrollView style={{width:"100%"}}>
-            <CardService/>
-            <CardService/>
-            <CardService/>
-          </ScrollView>
       </View>
       </>
     );
