@@ -21,10 +21,10 @@ export const Services = () => {
                     />
                 </View>
             <ScrollView style={{width:"100%"}}>
-                    <Card option={2} name={"Cambio de aceite"}  description={"El cambio de aceite en su vehiculo es muy importante, porque benefia a su motor"}/>
-                    <Card option={2} name={"Cambio de llanta"}  description={"El cambio de aceite en su vehiculo es muy importante, porque benefia a su motor"}/>
-                    <Card option={2} name={"Cambio de balatas"}  description={"El cambio de aceite en su vehiculo es muy importante, porque benefia a su motor"}/>
-                    <Card option={2} name={"Revisión general"}  description={"El cambio de aceite en su vehiculo es muy importante, porque benefia a su motor"}/>
+                    <Card option={2} nameService={"Cambio de aceite"}  description={"El cambio de aceite en su vehiculo es muy importante, porque benefia a su motor"}/>
+                    <Card option={2} nameService={"Cambio de llanta"}  description={"El cambio de aceite en su vehiculo es muy importante, porque benefia a su motor"}/>
+                    <Card option={2} nameService={"Cambio de balatas"}  description={"El cambio de aceite en su vehiculo es muy importante, porque benefia a su motor"}/>
+                    <Card option={2} nameService={"Revisión general"}  description={"El cambio de aceite en su vehiculo es muy importante, porque benefia a su motor"}/>
             </ScrollView>
             </View>
         </>

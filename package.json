@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@expo/metro-runtime": "~3.2.1",
+    "@expo/vector-icons": "^14.0.0",
+    "@react-native-community/datetimepicker": "^8.1.1",
     "@react-navigation/bottom-tabs": "^6.5.20",
     "@react-navigation/native-stack": "^6.9.26",
     "expo": "~51.0.14",
@@ -17,8 +19,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.74.2",
-    "react-native-web": "~0.19.10",
-    "@expo/vector-icons": "^14.0.0"
+    "react-native-paper": "^5.12.3",
+    "react-native-web": "~0.19.10"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

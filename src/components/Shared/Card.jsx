@@ -4,13 +4,12 @@ import { FontAwesome } from '@expo/vector-icons';
 import ImagenTaller from '../../../assets/ImageCard.jpg'
 import aceite from '../../../assets/CardOil.jpg'
 import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
 
 
-export const Card = ({name, option, description, rate, direction}) =>{
+export const Card = ({nameService, nameWorkshop, option, description, rate, direction}) =>{
     
     const navigation  = useNavigation() 
-
-
     const renderCards = () =>{
         switch(option){
             case 1: 
@@ -23,7 +22,7 @@ export const Card = ({name, option, description, rate, direction}) =>{
                         />
                     </View>
                     <View style={styles.infoContainer}>
-                        <Text style={styles.title}>{name}</Text>
+                        <Text style={styles.title}>{nameWorkshop}</Text>
                         <View style={styles.ratingContainer}>
                             {[...Array(rate)].map((_, index) => (
                                 <FontAwesome key={index} name="star" size={20} color="gold" />
@@ -31,7 +30,13 @@ export const Card = ({name, option, description, rate, direction}) =>{
                             <Text style={styles.rating}>{rate}</Text>
                         </View>
                         <Text style={styles.address}>{direction}</Text>
-                        <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate("Checkout")}>
+                        <TouchableOpacity style={styles.button} onPress={()=> {
+                            navigation.navigate("Checkout", {
+                            nameService,
+                            nameWorkshop,
+                            direction,
+                            phone: 12345679
+                        })}}>
                             <Text style={styles.buttonText}>Seleccionar</Text>
                         </TouchableOpacity>
                     </View>
@@ -47,9 +52,9 @@ export const Card = ({name, option, description, rate, direction}) =>{
                         />
                     </View>
                     <View style={styles.infoContainer}>
-                        <Text style={styles.title}>{name}</Text>
+                        <Text style={styles.title}>{nameService}</Text>
                         <Text style={styles.address}>{description}</Text>
-                        <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate("WorkShop")}>
+                        <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate("WorkShop", { nameService })}>
                             <Text style={styles.buttonText}>Seleccionar</Text>
                         </TouchableOpacity>
                     </View>

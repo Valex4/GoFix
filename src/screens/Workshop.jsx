@@ -3,7 +3,10 @@ import { TextInput } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Card } from '../components/Shared/Card';
 
-export const WorkShop = () =>{
+export const WorkShop = ({route}) =>{
+
+    const { nameService } = route.params;
+
     return(
         <>
             <View style={{ paddingTop: 20 ,alignItems: 'left', justifyContent: 'center' }}>
@@ -21,10 +24,10 @@ export const WorkShop = () =>{
                     />
                 </View>
             <ScrollView style={{width:"100%"}}>
-                <Card option={1} name={"Taller 'El colocho' "} rate={5} direction={"Avenida las palmas, #339 Tuxtla Gutiérrez"}/>
-                <Card option={1} name={"Taller La tuerca"} rate={4} direction={"Por suchiapa XD"}/>
-                <Card option={1} name={"Taller Ferras"} rate={2} direction={"Por suchiapa XD"}/>
-                <Card option={1} name={"Taller surimbo"} rate={2} direction={"Por suchiapa XD"}/>
+                <Card option={1} nameWorkshop={"Taller 'El colocho' "} rate={5} direction={"Avenida las palmas, #339 Tuxtla Gutiérrez"} nameService={nameService}/>
+                <Card option={1} nameWorkshop={"Taller La tuerca"} rate={4} direction={"Por suchiapa XD"} nameService={nameService}/>
+                <Card option={1} nameWorkshop={"Taller Ferras"} rate={2} direction={"Por suchiapa XD"} nameService={nameService}/>
+                <Card option={1} nameWorkshop={"Taller surimbo"} rate={2} direction={"Por suchiapa XD"} nameService={nameService}/>
             </ScrollView>
             </View>
         </>

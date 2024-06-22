@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Button, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -18,7 +18,15 @@ const Stack = createNativeStackNavigator(); //Este es el ruteador
 function TabNavigator() {
   return(
     <Tab.Navigator
-      screenOptions={({ route }) => ({
+      screenOptions={
+        ({ route }) => ({
+        headerRight: () => (
+            <Button
+              onPress={() => alert('This is a button!')}
+              title="Info"
+              color="#fff"
+            />
+        ),
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
@@ -35,12 +43,10 @@ function TabNavigator() {
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
+        tabBarActiveTintColor: '#1C6FD1',
+        tabBarInactiveTintColor: 'gray',
+        tabBarShowLabel: true,
       })}
-      tabBarOptions={{
-        activeTintColor: '#1C6FD1',
-        inactiveTintColor: 'gray',
-        showLabel: true,
-      }}
       >
         <Tab.Screen 
           name='Home' 
@@ -48,6 +54,7 @@ function TabNavigator() {
           options={{ 
             headerShown: true, 
             headerStyle: { backgroundColor: '#1C6FD1'}, 
+            headerTintColor: 'white'
           }}
           />
           <Tab.Screen
@@ -55,23 +62,17 @@ function TabNavigator() {
           component={Services} 
           options={{
            headerShown: true,
-            headerStyle:{backgroundColor:'#1C6FD1'}
+            headerStyle:{backgroundColor:'#1C6FD1'},
+            headerTintColor: 'white'
           }}
          />
-        {/* <Tab.Screen
-          name='Workshop' 
-          component={WorkShop} 
-          options={{
-           headerShown: true,
-            headerStyle:{backgroundColor:'#1C6FD1'}
-          }}
-         /> */}
          <Tab.Screen
           name='FAQ' 
           component={FAQ} 
           options={{
            headerShown: true,
-            headerStyle:{backgroundColor:'#1C6FD1'}
+            headerStyle:{backgroundColor:'#1C6FD1'},
+            headerTintColor: 'white'
           }}
          />
       </Tab.Navigator>
@@ -83,12 +84,26 @@ function App() {
   return (
 
     <NavigationContainer>
-       <Stack.Navigator initialRouteName='Home'>
+       <Stack.Navigator 
+        initialRouteName='Root'
+        screenOptions={{
+          headerBackTitle: 'Regresar',
+          headerRight: () => (
+            <Button
+              onPress={() => alert('This is a button!')}
+              title="Info"
+              color="#fff"
+            />
+          ),
+        }}
+       >
         <Stack.Screen 
-          name="Home" 
+          name="Root" 
           component={TabNavigator} 
           options={{
             headerShown: false,
+            headerStyle: { backgroundColor: '#1C6FD1'},
+            headerTintColor: 'white'
           }}
         />
         <Stack.Screen
@@ -97,6 +112,7 @@ function App() {
           options={{
             headerShown: true,
             headerStyle: { backgroundColor: '#1C6FD1' },
+            headerTintColor: 'white'
           }}
         />
         <Stack.Screen
@@ -105,9 +121,9 @@ function App() {
           options={{
             headerShown: true,
             headerStyle: { backgroundColor: '#1C6FD1' },
+            headerTintColor: 'white'
           }}
         />
-        
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -115,11 +131,3 @@ function App() {
 
 export default App;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
