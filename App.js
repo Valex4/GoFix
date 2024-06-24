@@ -9,23 +9,22 @@ import { WorkShop } from './src/screens/Workshop';
 import { Services } from './src/screens/Services';
 import { FAQ } from './src/screens/FAQ';
 import { Checkout } from './src/screens/Checkout';
+import { Login } from './src/screens/Login/Login';
+import { Register } from './src/screens/Register/Register';
 
-
-const Tab = createBottomTabNavigator(); //Este es el footer
-const Stack = createNativeStackNavigator(); //Este es el ruteador
-
+const Tab = createBottomTabNavigator(); // Este es el footer
+const Stack = createNativeStackNavigator(); // Este es el ruteador
 
 function TabNavigator() {
-  return(
+  return (
     <Tab.Navigator
-      screenOptions={
-        ({ route }) => ({
+      screenOptions={({ route }) => ({
         headerRight: () => (
-            <Button
-              onPress={() => alert('This is a button!')}
-              title="Info"
-              color="#fff"
-            />
+          <Button
+            onPress={() => alert('This is a button!')}
+            title="Info"
+            color="#fff"
+          />
         ),
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
@@ -36,9 +35,13 @@ function TabNavigator() {
             iconName = focused ? 'search' : 'search-outline';
           } else if (route.name === 'Profile') {
             iconName = focused ? 'person' : 'person-outline';
-          }else if (route.name === 'Services') {
+          } else if (route.name === 'Services') {
             iconName = focused ? 'build' : 'build-outline';
-          }else if (route.name === 'FAQ') {
+          } else if (route.name === 'FAQ') {
+            iconName = focused ? 'accessibility' : 'accessibility-outline';
+          } else if (route.name === 'login') {
+            iconName = focused ? 'accessibility' : 'accessibility-outline';
+          } else if (route.name === 'register') {
             iconName = focused ? 'accessibility' : 'accessibility-outline';
           }
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -47,45 +50,43 @@ function TabNavigator() {
         tabBarInactiveTintColor: 'gray',
         tabBarShowLabel: true,
       })}
-      >
-        <Tab.Screen 
-          name='Home' 
-          component={HomeScreen} 
-          options={{ 
-            headerShown: true, 
-            headerStyle: { backgroundColor: '#1C6FD1'}, 
-            headerTintColor: 'white'
-          }}
-          />
-          <Tab.Screen
-          name='Services' 
-          component={Services} 
-          options={{
-           headerShown: true,
-            headerStyle:{backgroundColor:'#1C6FD1'},
-            headerTintColor: 'white'
-          }}
-         />
-         <Tab.Screen
-          name='FAQ' 
-          component={FAQ} 
-          options={{
-           headerShown: true,
-            headerStyle:{backgroundColor:'#1C6FD1'},
-            headerTintColor: 'white'
-          }}
-         />
-      </Tab.Navigator>
-  )
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          headerShown: true,
+          headerStyle: { backgroundColor: '#1C6FD1' },
+          headerTintColor: 'white'
+        }}
+      />
+      <Tab.Screen
+        name="Services"
+        component={Services}
+        options={{
+          headerShown: true,
+          headerStyle: { backgroundColor: '#1C6FD1' },
+          headerTintColor: 'white'
+        }}
+      />
+      <Tab.Screen
+        name="FAQ"
+        component={FAQ}
+        options={{
+          headerShown: true,
+          headerStyle: { backgroundColor: '#1C6FD1' },
+          headerTintColor: 'white'
+        }}
+      />
+    </Tab.Navigator>
+  );
 }
-
 
 function App() {
   return (
-
     <NavigationContainer>
-       <Stack.Navigator 
-        initialRouteName='Root'
+      <Stack.Navigator
+        initialRouteName="Login"
         screenOptions={{
           headerBackTitle: 'Regresar',
           headerRight: () => (
@@ -96,13 +97,29 @@ function App() {
             />
           ),
         }}
-       >
-        <Stack.Screen 
-          name="Root" 
-          component={TabNavigator} 
+      >
+        <Stack.Screen
+          name="Login"
+          component={Login}
           options={{
             headerShown: false,
-            headerStyle: { backgroundColor: '#1C6FD1'},
+          }}
+        />
+        <Stack.Screen
+          name="Root"
+          component={TabNavigator}
+          options={{
+            headerShown: false,
+            headerStyle: { backgroundColor: '#1C6FD1' },
+            headerTintColor: 'white'
+          }}
+        />
+        <Stack.Screen
+          name="Register"
+          component={Register}
+          options={{
+            headerShown: true,
+            headerStyle: { backgroundColor: '#1C6FD1' },
             headerTintColor: 'white'
           }}
         />
@@ -130,4 +147,3 @@ function App() {
 }
 
 export default App;
-
