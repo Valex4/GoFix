@@ -11,6 +11,9 @@ import { FAQ } from './src/screens/FAQ';
 import { Checkout } from './src/screens/Checkout';
 import { Login } from './src/screens/Login/Login';
 import { Register } from './src/screens/Register/Register';
+import { UpdatePassword } from './src/screens/UpdatePassword/UpdatePassword';
+import { CodeVerification } from './src/screens/CodeVerification/CodeVerification';
+import { NewPassword } from './src/screens/NewPassword/NewPassword'; 
 
 const Tab = createBottomTabNavigator(); // Este es el footer
 const Stack = createNativeStackNavigator(); // Este es el ruteador
@@ -39,11 +42,7 @@ function TabNavigator() {
             iconName = focused ? 'build' : 'build-outline';
           } else if (route.name === 'FAQ') {
             iconName = focused ? 'accessibility' : 'accessibility-outline';
-          } else if (route.name === 'login') {
-            iconName = focused ? 'accessibility' : 'accessibility-outline';
-          } else if (route.name === 'register') {
-            iconName = focused ? 'accessibility' : 'accessibility-outline';
-          }
+          } 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: '#1C6FD1',
@@ -117,6 +116,33 @@ function App() {
         <Stack.Screen
           name="Register"
           component={Register}
+          options={{
+            headerShown: true,
+            headerStyle: { backgroundColor: '#1C6FD1' },
+            headerTintColor: 'white'
+          }}
+        />
+        <Stack.Screen
+          name="UpdatePassword"
+          component={UpdatePassword}
+          options={{
+            headerShown: true,
+            headerStyle: { backgroundColor: '#1C6FD1' },
+            headerTintColor: 'white'
+          }}
+        />
+        <Stack.Screen
+          name="CodeVerification"
+          component={CodeVerification}
+          options={{
+            headerShown: true,
+            headerStyle: { backgroundColor: '#1C6FD1' },
+            headerTintColor: 'white'
+          }}
+        />
+        <Stack.Screen
+          name="NewPassword"
+          component={NewPassword}
           options={{
             headerShown: true,
             headerStyle: { backgroundColor: '#1C6FD1' },

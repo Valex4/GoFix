@@ -54,7 +54,7 @@ export const Login = () =>{
           gap: 8,
           marginTop: '5%',
           width: '100%',
-          height: '9%',
+          height: '8%',
           paddingVertical: 10,
           borderRadius: 5,
           alignItems: 'center',
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
       button: {
         marginTop:'9%',
         width:'100%',
-        height: '8%',
+        height: '7%',
         backgroundColor: '#126EC0',
         paddingVertical: 10,
         borderRadius: 5,
