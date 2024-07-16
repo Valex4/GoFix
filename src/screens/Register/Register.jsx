@@ -13,6 +13,7 @@ import Google from '../../../assets/google.jpg';
 const RegisterSchema = Yup.object().shape({
   name: Yup.string().required('Nombre es requerido'),
   email: Yup.string().email('Correo electrónico inválido').required('Correo electrónico es requerido'),
+  phone: Yup.string().required('Telefono es requerido'),
   password: Yup.string().min(6, 'La contraseña debe tener al menos 6 caracteres').required('Contraseña es requerida'),
   confirmpassword: Yup.string().oneOf([Yup.ref('password'), null], 'Las contraseñas deben coincidir').required('Confirmar contraseña es requerida'),
   is_mechanic: Yup.boolean().required('Campo requerido'), 
@@ -28,25 +29,40 @@ export const Register = () => {
     const objectDataFront = {  
       name: values.name,
       email: values.email,
+      phone: values.phone,
       password: values.password,
       is_mechanic: values.is_mechanic
     }
     console.log("Imprimiendo el objeto despues del formateo")
     console.log(objectDataFront)
-     try {
-       console.log(objectDataFront);
-       const response = await createUser(objectDataFront);
-       if(response.status === 200){
-         Alert.alert("Todo ok")
+    try {
+      const response = await createUser(objectDataFront);
+      if (response.status === 200) {
+        Alert.alert("Todo ok");
+        navigation.navigate("Login");
+      } else {
+        Alert.alert('Registro fallido', response.data.message);
       }
-     navigation.navigate("Login");
     } catch (error) {
-     Alert.alert('Registro fallido', error.message);
+      Alert.alert('Registro fallido', 'Ocurrió un error. Por favor, intenta nuevamente.');
+      console.log('Error al crear usuario:', error);
+      if (error.response) {
+        // La solicitud fue hecha y el servidor respondió con un código de estado
+        // que no está en el rango de 2xx
+        console.log('Data:', error.response.data);
+        console.log('Status:', error.response.status);
+        console.log('Headers:', error.response.headers);
+      } else if (error.request) {
+        // La solicitud fue hecha pero no se recibió respuesta
+        console.log('Request:', error.request);
+      } else {
+        // Algo sucedió al configurar la solicitud que provocó un error
+        console.log('Error Message:', error.message);
+      }
+      console.log('Config:', error.config);
     }
   };
   
-  const [selectedValue, setSelectedValue] = useState(null);
-
   const items = [
       { label: 'Usuario', value: false },
       { label: 'Mecanico', value: true },
@@ -63,7 +79,7 @@ export const Register = () => {
             <Image source={Logo} style={styles.image} />
         </View>
         <Formik
-            initialValues={{ name: '', email: '', password: '', confirmpassword: '', is_mechanic: null }}
+            initialValues={{ name: '', email: '', phone:'', password: '', confirmpassword: '', is_mechanic: null }}
             validationSchema={RegisterSchema}
             onSubmit={values => {
                 handleRegister(values)
@@ -82,6 +98,17 @@ export const Register = () => {
                     {errors.name && touched.name ? (
                         <Text style={styles.errorText}>{errors.name}</Text>
                     ) : null}
+                        <GroupInput
+                            option={4}
+                            label={"Numero de telefono"}
+                            placeholder={"9876543211"}
+                            value={values.phone}
+                            onChangeText={handleChange('phone')}
+                            onBlur={handleBlur('phone')}
+                        />
+                        {errors.phone && touched.phone ? (
+                            <Text style={styles.errorText}>{errors.phone}</Text>
+                        ) : null}
                     <GroupInput
                         option={1}
                         label={"Correo electrónico"}

@@ -69,6 +69,18 @@ export const GroupInput = ({ label, placeholder, value, onChangeText, option, te
                 </View>
               </View>
               );
+              case 4:
+                return(
+                  <View style={styles.containerInput}>
+                    <Text style={styles.label}>{label}</Text>
+                    <TextInput style={styles.input}
+                    placeholder={placeholder}
+                    value={value}
+                    onChangeText={onChangeText}
+                    keyboardType="numeric"
+                    />
+                  </View>
+                  );
             default:
               return null;
           }
