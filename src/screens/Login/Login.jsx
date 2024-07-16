@@ -19,9 +19,15 @@ export const Login = () => {
   const handleLogin = async (values) => {
     Alert.alert("Datos ingresados", `Email: ${values.email}\nContraseña: ${values.password}`);
     console.log(values);
+    try{
     const response = await loginUser(values);
+    console.log("Imprimiendo el response")
+    console.log(response.status)
     console.log(response.data)
     navigation.navigate("Root", {}) 
+    }catch{
+      console.log("Error: ", error)
+    }
   };
 
   return (

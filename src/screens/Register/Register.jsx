@@ -7,9 +7,10 @@ import * as Yup from 'yup';
 import RNPickerSelect from 'react-native-picker-select';
 import { FontAwesome } from '@expo/vector-icons';
 import { GroupInput } from '../../components/Shared/GroupInput';
-import { createUser } from '../../api/routes';
+import { registerUser } from '../../api/routes';
 import Logo from '../../../assets/logo.jpg';
 import Google from '../../../assets/google.jpg';
+import { Login } from '../Login/Login';
 
 const RegisterSchema = Yup.object().shape({
   name: Yup.string().required('Nombre es requerido'),
@@ -22,7 +23,6 @@ const RegisterSchema = Yup.object().shape({
 
 export const Register = () => {
   const navigation = useNavigation();
-  
   const handleRegister = async (values) => {
     Alert.alert("Datos ingresados",`${values}`);
     const objectDataFront = {  
@@ -34,8 +34,14 @@ export const Register = () => {
     }
     console.log("Imprimiendo el objeto despues del formateo")
     console.log(objectDataFront)
-      const response = await axios.post('http://44.212.147.59:4000/api/v1/user/signup', values);
+    try{
+      const response = await registerUser(objectDataFront);
       console.log(response.data)
+      console.log(response.status)
+      navigation.navigate("Login", {Login})
+    }catch{
+      console.log("Error al mandar los datos", error);
+    }
   };
   
   const items = [
