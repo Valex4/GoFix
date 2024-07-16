@@ -19,16 +19,9 @@ export const Login = () => {
   const handleLogin = async (values) => {
     Alert.alert("Datos ingresados", `Email: ${values.email}\nContraseña: ${values.password}`);
     console.log(values);
-    try {
-      console.log(objectDataFront);
-      const response = await loginUser(values);
-      if(response.status === 200){
-        Alert.alert("Todo ok!")  
-      }
-      navigation.navigate("Root", {});
-   } catch (error) {
-    Alert.alert('Error de inicio de sesion', error.message);
-   }
+    const response = await loginUser(values);
+    console.log(response.data)
+    navigation.navigate("Root", {}) 
   };
 
   return (

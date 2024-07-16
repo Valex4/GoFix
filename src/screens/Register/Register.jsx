@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { ScrollView, View, StyleSheet, Text, Image, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
@@ -24,8 +25,6 @@ export const Register = () => {
   
   const handleRegister = async (values) => {
     Alert.alert("Datos ingresados",`${values}`);
-    console.log("Imprimiendo el objeto del registro")
-    console.log(values)
     const objectDataFront = {  
       name: values.name,
       email: values.email,
@@ -35,37 +34,13 @@ export const Register = () => {
     }
     console.log("Imprimiendo el objeto despues del formateo")
     console.log(objectDataFront)
-    try {
-      const response = await createUser(objectDataFront);
-      if (response.status === 200) {
-        Alert.alert("Todo ok");
-        navigation.navigate("Login");
-      } else {
-        Alert.alert('Registro fallido', response.data.message);
-      }
-    } catch (error) {
-      Alert.alert('Registro fallido', 'Ocurrió un error. Por favor, intenta nuevamente.');
-      console.log('Error al crear usuario:', error);
-      if (error.response) {
-        // La solicitud fue hecha y el servidor respondió con un código de estado
-        // que no está en el rango de 2xx
-        console.log('Data:', error.response.data);
-        console.log('Status:', error.response.status);
-        console.log('Headers:', error.response.headers);
-      } else if (error.request) {
-        // La solicitud fue hecha pero no se recibió respuesta
-        console.log('Request:', error.request);
-      } else {
-        // Algo sucedió al configurar la solicitud que provocó un error
-        console.log('Error Message:', error.message);
-      }
-      console.log('Config:', error.config);
-    }
+      const response = await axios.post('http://44.212.147.59:4000/api/v1/user/signup', values);
+      console.log(response.data)
   };
   
   const items = [
-      { label: 'Usuario', value: false },
-      { label: 'Mecanico', value: true },
+      { label: 'Usuario', value:false },
+      { label: 'Mecanico', value:true },
   ];
 
   return (
