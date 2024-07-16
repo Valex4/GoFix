@@ -101,7 +101,7 @@ input: {
     borderWidth: 1,
     borderColor: '#E9E9E9',
     borderRadius: 4,
-    paddingRight: 10,
+    width:'100%'
   },
   eyeIcon: {
     padding: 10,
