@@ -1,28 +1,81 @@
-import React from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { ScrollView, View, Text, TextInput, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export const GroupInput = ({ label, placeholder, value, onChangeText, option, text}) => {
+export const GroupInput = ({ label, placeholder, value, onChangeText, option, text, onChange, onBlur}) => {
   const navigation  = useNavigation() 
   const [secureText, setSecureText] = React.useState(true);
 
+  const [date, setDate] = useState(value instanceof Date ? value : new Date());
+  const [dateClosing, setDateClosing] = useState(value instanceof Date ? value : new Date());
+
+  const handleChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setDate(currentDate);
+    onChange(currentDate);
+  };
+
+  const handleChangeClosing = (event, selectedDate) => {
+    const currentDate = selectedDate || dateClosing;
+    setDateClosing(currentDate);
+    onChange(currentDate);
+  };
+
+  const renderTimePicker = () => {
+    return (
+      <ScrollView>
+        <View style={styles.containerInput}>
+          <Text style={styles.label}>{label}</Text>
+          <TouchableOpacity onPress={() => setShowPicker(true)} style={styles.input}>
+          </TouchableOpacity>
+            <DateTimePicker
+              value={new Date()}
+              mode="time"
+              is24Hour={true}
+              display="default"
+              onChange={handleChange}
+            />
+        </View>
+      </ScrollView>
+    );
+  };
+
+  const renderTimePickerClosing = () => {
+    return (
+      <ScrollView>
+        <View style={styles.containerInput}>
+          <Text style={styles.label}>{label}</Text>
+          <TouchableOpacity onPress={() => setShowPicker(true)} style={styles.input}>
+          </TouchableOpacity>
+            <DateTimePicker
+              value={new Date()}
+              mode="time"
+              is24Hour={true}
+              display="default"
+              onChange={handleChangeClosing}
+            />
+        </View>
+      </ScrollView>
+    );
+  };
     const renderInput = () =>{
         switch(option){
             case 1:
               return(
-                <View style={styles.containerInput}>
+                <ScrollView style={styles.containerInput}>
                   <Text style={styles.label}>{label}</Text>
                   <TextInput style={styles.input}
                   placeholder={placeholder}
                   value={value}
                   onChangeText={onChangeText}
                   />
-                </View>
+                </ScrollView>
                 );
             case 2: 
               return(
-                <View style={styles.containerInput}>
+                <ScrollView style={styles.containerInput}>
                 <Text style={styles.label}>{label}</Text>
                 <View style={styles.passwordContainer}>
                   <TextInput
@@ -44,11 +97,11 @@ export const GroupInput = ({ label, placeholder, value, onChangeText, option, te
                 <TouchableOpacity onPress={() => navigation.navigate('UpdatePassword')}>
                   <Text style={styles.forgotPassword}>{text}</Text>
                 </TouchableOpacity>
-              </View>
+              </ScrollView>
               );
               case 3: 
               return(
-                <View style={styles.containerInput}>
+                <ScrollView style={styles.containerInput}>
                 <Text style={styles.label}>{label}</Text>
                 <View style={styles.passwordContainer}>
                   <TextInput
@@ -67,11 +120,11 @@ export const GroupInput = ({ label, placeholder, value, onChangeText, option, te
                     /> */}
                   </TouchableOpacity>
                 </View>
-              </View>
+              </ScrollView>
               );
               case 4:
                 return(
-                  <View style={styles.containerInput}>
+                  <ScrollView style={styles.containerInput}>
                     <Text style={styles.label}>{label}</Text>
                     <TextInput style={styles.input}
                     placeholder={placeholder}
@@ -79,8 +132,36 @@ export const GroupInput = ({ label, placeholder, value, onChangeText, option, te
                     onChangeText={onChangeText}
                     keyboardType="numeric"
                     />
-                  </View>
+                  </ScrollView>
                   );
+              case 5: 
+                return(
+                  <ScrollView style={styles.containerInput}>
+                    <Text style={styles.label}>{label}</Text>
+                    <TextInput style={styles.inputV}
+                    placeholder={placeholder}
+                    value={value}
+                    onChangeText={onChangeText}
+                    />
+                  </ScrollView>
+                  );
+                  case 6: 
+                  return(
+                    <ScrollView>
+                    <View style={styles.containerInput}>
+                      <Text style={styles.label}>{label}</Text>
+                      <TextInput style={styles.textArea}
+                      placeholder={placeholder}
+                      value={value}
+                      onChangeText={onChangeText}
+                      />
+                    </View>
+                      </ScrollView>
+                    );
+                case 7:
+                 return renderTimePicker();
+                case 8:
+                 return renderTimePickerClosing();
             default:
               return null;
           }
@@ -105,7 +186,8 @@ input: {
     width: '100%',
     color:'#A9A9A9',
     fontSize: 17,
-    borderRadius: 4
+    borderRadius: 4,
+    textAlignVertical: 'top'
   },
   passwordContainer: {
     flexDirection: 'row',
@@ -113,7 +195,8 @@ input: {
     borderWidth: 1,
     borderColor: '#E9E9E9',
     borderRadius: 4,
-    width:'100%'
+    width:'100%',
+    textAlignVertical: 'top'
   },
   eyeIcon: {
     padding: 10,
@@ -124,5 +207,31 @@ input: {
     color: '#1C6FD1',
     alignSelf: 'flex-end',
     marginTop: 5,
+    textAlignVertical: 'top'
   },
+  inputV: {
+    padding: 12,
+    backgroundColor: '#F7F7F7',
+    fontSize: 16,
+    width: '100%',
+    color:'#A9A9A9',
+    fontSize: 17,
+    borderRadius: 4,
+    borderColor: '#D8DCE1',
+    borderWidth: 1,
+    textAlignVertical: 'top',
+  },
+  textArea: {
+    width: '100%',
+    height: 90,
+    padding: 10,
+    backgroundColor: '#F7F7F7',
+    fontSize: 16,
+    borderColor: '#D8DCE1',
+    borderWidth: 1,
+    borderRadius: 4,
+    color:'#A9A9A9',
+    fontSize: 17,
+    textAlignVertical: 'top',
+  }
 });

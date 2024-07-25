@@ -24,7 +24,6 @@ const RegisterSchema = Yup.object().shape({
 export const Register = () => {
   const navigation = useNavigation();
   const handleRegister = async (values) => {
-    Alert.alert("Datos ingresados",`${values}`);
     const objectDataFront = {  
       name: values.name,
       email: values.email,
@@ -38,9 +37,13 @@ export const Register = () => {
       const response = await registerUser(objectDataFront);
       console.log(response.data)
       console.log(response.status)
-      navigation.navigate("Login", {Login})
-    }catch{
+      if(response.status == 201){
+          Alert.alert("Usuario registrado correctamente");
+          navigation.navigate("Login", {Login})
+      }
+    }catch(error){
       console.log("Error al mandar los datos", error);
+      console.log(response.data)
     }
   };
   
