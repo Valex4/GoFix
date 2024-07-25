@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
 import { getUser, updateUser, deleteUser } from '../../api/routes';
@@ -99,7 +100,8 @@ export const Profile = () => {
         throw new Error('No se encontró token o ID de usuario');
       }
       try {
-        const response = await deleteUser(userId);
+          const response = await deleteUser(userId);
+          console.log(userId)
         console.log(response.status);
         if (response.status == 200) {
           navigation.navigate('Login', { Login });

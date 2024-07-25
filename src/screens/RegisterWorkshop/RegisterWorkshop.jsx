@@ -51,17 +51,18 @@ export const RegisterWorkshop = () => {
         name: values.name,
         address: values.address,
         postalCode: values.postalCode,
-        openingHours: openingHours,
-        closingHours: closingHours,
+        openingHours: '2024-07-05T09:00:00Z',
+        closingHours: '2024-07-05T09:00:00Z',
         description: values.description,
         id_user: userId,
       };
       console.log("imprimiendo los valores despues de formatearlo ",objectDataFront)
       const response = await registerWorkshop(objectDataFront);
       console.log('Imprimiendo el response ', response.data);
-      if( response.status == 200 ){
-          Alert.alert('Éxito', 'Los datos se han registrado correctamente');
-      }
+      // if( response.status == 200 ){
+      //     Alert.alert('Éxito', 'Los datos se han registrado correctamente');
+      // }
+      console.log(response.status);
     } catch (error) {
       console.log('Error: ', error);
       Alert.alert('Error', 'Hubo un problema al registrar los datos. Por favor, intenta de nuevo.');
@@ -81,7 +82,7 @@ export const RegisterWorkshop = () => {
           <Text style={{ fontWeight: 'bold', fontSize: 32, marginLeft: 10, color: '#126EC0' }}>FIX</Text>
         </Text>
         <Formik
-          initialValues={{ name: '', address: '', postalCode: '', openingHours: '', closingHours: '', description: ''}}
+          initialValues={{ name: '', address: '', postalCode: '', openingHours: new Date(), closingHours: new Date(), description: ''}}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
