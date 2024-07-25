@@ -3,6 +3,7 @@ import { StyleSheet, Button, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { HomeScreen } from './src/screens/Home';
 import { WorkShop } from './src/screens/Workshop';
@@ -14,18 +15,27 @@ import { Register } from './src/screens/Register/Register';
 import { UpdatePassword } from './src/screens/UpdatePassword/UpdatePassword';
 import { CodeVerification } from './src/screens/CodeVerification/CodeVerification';
 import { NewPassword } from './src/screens/NewPassword/NewPassword'; 
+import { Interesting } from './src/screens/Interesting/Interesting';
+import { RegisterWorkshop } from './src/screens/RegisterWorkshop/RegisterWorkshop';
+import { Profile } from './src/screens/Profile/Profile'; 
+
 
 const Tab = createBottomTabNavigator(); // Este es el footer
 const Stack = createNativeStackNavigator(); // Este es el ruteador
 
 function TabNavigator() {
+  const navigation = useNavigation();
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        headerRight: () => (
+        headerRight: () => (       
           <Button
-            onPress={() => alert('This is a button!')}
-            title="Info"
+            // onPress={() => alert('This is a button!')}
+            // title="Info"
+            // color="#fff"
+            onPress={() => navigation.navigate('Profile')}
+            title="Perfil"
             color="#fff"
           />
         ),
@@ -42,7 +52,9 @@ function TabNavigator() {
             iconName = focused ? 'build' : 'build-outline';
           } else if (route.name === 'FAQ') {
             iconName = focused ? 'accessibility' : 'accessibility-outline';
-          } 
+          }else if (route.name === 'Interesting') {
+            iconName = focused ? 'accessibility' : 'accessibility-outline';
+          }       
           return <Ionicons name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: '#1C6FD1',
@@ -77,6 +89,15 @@ function TabNavigator() {
           headerTintColor: 'white'
         }}
       />
+      <Tab.Screen 
+        name="Interesting"
+        component={Interesting}
+        options={{
+          headerShown: true,
+          headerStyle: { backgroundColor: '#1C6FD1' },
+          headerTintColor: 'white'
+        }}
+      />
     </Tab.Navigator>
   );
 }
@@ -94,6 +115,7 @@ function App() {
               title="Info"
               color="#fff"
             />
+            // <Profile /> 
           ),
         }}
       >
@@ -116,6 +138,15 @@ function App() {
         <Stack.Screen
           name="Register"
           component={Register}
+          options={{
+            headerShown: true,
+            headerStyle: { backgroundColor: '#1C6FD1' },
+            headerTintColor: 'white'
+          }}
+        />
+        <Stack.Screen
+          name="RegisterWorkshop"
+          component={RegisterWorkshop}
           options={{
             headerShown: true,
             headerStyle: { backgroundColor: '#1C6FD1' },
@@ -165,6 +196,16 @@ function App() {
             headerShown: true,
             headerStyle: { backgroundColor: '#1C6FD1' },
             headerTintColor: 'white'
+          }}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            headerShown: true,
+            headerStyle: { backgroundColor: '#1C6FD1' },
+            headerTintColor: 'white',
+            title: 'Perfil'
           }}
         />
       </Stack.Navigator>

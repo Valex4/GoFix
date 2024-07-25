@@ -1,34 +1,53 @@
 import React from 'react';
 import { View, ScrollView, StyleSheet, Text, Image, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 import { GroupInput } from '../../components/Shared/GroupInput';
 import { loginUser } from '../../api/routes.js'  
 import Logo from '../../../assets/logo.jpg';
 import Google from '../../../assets/google.jpg';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Campo obligatorio'),
   password: Yup.string().required('Campo obligatorio'),
 });
 
+const saveUserData = async (token, userId, isMechanic) => {
+  try {
+    await AsyncStorage.setItem('@user_token', token);
+    await AsyncStorage.setItem('@user_id', userId.toString());
+    await AsyncStorage.setItem('@user_mechanic', isMechanic.toString());
+    console.log('User data saved:', { token, userId, isMechanic });
+  } catch (e) {
+    console.error('Error saving user data:', e);
+    throw e;
+  }
+};
+
 export const Login = () => {
   const navigation = useNavigation();
 
   const handleLogin = async (values) => {
     Alert.alert("Datos ingresados", `Email: ${values.email}\nContraseña: ${values.password}`);
-    console.log(values);
-    try{
-    const response = await loginUser(values);
-    console.log("Imprimiendo el response")
-    console.log(response.status)
-    console.log(response.data)
-    navigation.navigate("Root", {}) 
-    }catch{
-      console.log("Error: ", error)
+    try {
+      const response = await loginUser(values);
+      console.log("imprimiendo el response ", response.data);
+        const { accessToken, id_user, is_mechanic } = response.data;
+          await saveUserData(accessToken, id_user, is_mechanic);
+          console.log('Login successful!');
+          if(response.data.is_mechanic == true){
+            navigation.navigate("RegisterWorkshop", {});
+          }else if(response.data.is_mechanic == false){
+            navigation.navigate("Root", {});
+          }
+    } catch (error) {
+      console.error('Error during login:', error);
+      Alert.alert("Error", "Ocurrió un error durante el inicio de sesión. Por favor, intenta de nuevo más tarde.");
     }
   };
+
 
   return (
     <ScrollView style={{ width: "100%", backgroundColor: '#E8ECF5', paddingTop:'10%' }}>
